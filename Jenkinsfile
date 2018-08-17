@@ -72,6 +72,8 @@ pipeline {
 
             sh "pip install -e ./ansible-container[docker]"
 
+            sh "pip freeze"
+
             sh "cd ansible && ls && ansible-container --debug build --with-volumes ../:/dashboard --roles-path ./roles"
 
             sh "python -m unittest"
