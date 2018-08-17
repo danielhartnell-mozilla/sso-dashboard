@@ -39,7 +39,7 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'master'
+          branch 'master|test-01'
         }
         steps {
           container('python') {
