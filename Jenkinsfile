@@ -57,6 +57,8 @@ pipeline {
             }
           }
           container('python') {
+            sh "echo TEST-01 BRANCH TRIGGERED WHEN MASTER?"
+
             sh "python -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
