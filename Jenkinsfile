@@ -68,7 +68,7 @@ pipeline {
 
             sh "python3 -m pip install -e ./ansible-container[docker]"
 
-            sh "cd ansible-container && ls && ansible-container build --with-volumes ../:/dashboard"
+            sh "cd ansible && ls && ansible-container build --with-volumes ../:/dashboard"
 
             sh "python3 -m unittest"
 
