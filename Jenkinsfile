@@ -68,6 +68,10 @@ pipeline {
 
             sh "python --version"
 
+            sh "python3 --version"
+
+            sh "pip3 --version"
+
             sh "pip install --upgrade setuptools"
 
             sh "pip install -e ./ansible-container[docker]"
