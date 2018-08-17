@@ -57,6 +57,8 @@ pipeline {
             }
           }
           container('python') {
+            sh "echo HELLO FROM JENKINSFILE..."
+
             sh "python -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
