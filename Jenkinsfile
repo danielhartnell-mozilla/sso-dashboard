@@ -23,6 +23,8 @@ pipeline {
 
             sh "cd ansible-container"
 
+            sh "pip install --upgrade pip"
+
             sh "pip install -e ./ansible-container[docker]"
 
             sh "cd ansible-container && ansible-container build --with-volumes ../:/dashboard"
