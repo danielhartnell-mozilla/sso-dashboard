@@ -39,12 +39,12 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'master'
+          branch 'production'
         }
         steps {
           container('python') {
             // ensure we're not on a detached head
-            sh "git checkout master"
+            sh "git checkout production"
             sh "git config --global credential.helper store"
 
             sh "jx step git credentials"
@@ -69,7 +69,7 @@ pipeline {
       }
       stage('Promote to Environments') {
         when {
-          branch 'master'
+          branch 'production'
         }
         steps {
           dir ('./charts/sso-dashboard') {
