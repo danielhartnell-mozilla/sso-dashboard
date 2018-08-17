@@ -66,15 +66,11 @@ pipeline {
           container('python') {
             sh "git clone https://github.com/ansible/ansible-container.git"
 
-            sh "yum install -y gcc"
-
             sh "pip install --upgrade setuptools"
-
-            sh "pip install -r requirements.txt"
 
             sh "pip install -e ./ansible-container[docker]"
 
-            sh "cd ansible && ls && ansible-container --debug build --with-volumes ../:/dashboard"
+            sh "cd ansible && ansible-container build --with-volumes ../:/dashboard --role-path './roles/dashboard'"
 
             sh "python -m unittest"
 
