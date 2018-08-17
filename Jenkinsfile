@@ -70,11 +70,11 @@ pipeline {
 
             sh "pip install --upgrade setuptools"
 
+            sh "pip install -r requirements.txt"
+
             sh "pip install -e ./ansible-container[docker]"
 
-            sh "pip freeze"
-
-            sh "cd ansible && ls && ansible-container --debug build --with-volumes ../:/dashboard --roles-path ./roles"
+            sh "cd ansible && ls && ansible-container --debug build --with-volumes ../:/dashboard"
 
             sh "python -m unittest"
 
