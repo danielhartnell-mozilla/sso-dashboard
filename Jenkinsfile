@@ -70,7 +70,7 @@ pipeline {
 
             sh "pip install -e ./ansible-container[docker]"
 
-            sh "cd ansible && ansible-container build --with-volumes ../:/dashboard --role-path './roles/dashboard'"
+            sh "cd ansible && ansible-container build --with-volumes ../:/dashboard --roles-path './roles/dashboard'"
 
             sh "python -m unittest"
 
