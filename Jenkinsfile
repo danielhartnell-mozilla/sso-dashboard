@@ -61,16 +61,16 @@ pipeline {
               sh "make tag"
             }
           }
-          container('python') {
+          container('python:3') {
             sh "git clone https://github.com/ansible/ansible-container.git"
 
-            sh "python3 --version"
+            sh "python --version"
 
-            sh "python3 -m pip install -e ./ansible-container[docker]"
+            sh "python -m pip install -e ./ansible-container[docker]"
 
             sh "cd ansible && ls && ansible-container build --with-volumes ../:/dashboard"
 
-            sh "python3 -m unittest"
+            sh "python -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
 
