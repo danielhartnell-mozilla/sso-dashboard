@@ -62,23 +62,15 @@ pipeline {
             }
           }
           container('python') {
-            sh "pwd && ls"
-
             sh "git clone https://github.com/ansible/ansible-container.git"
-
-            sh "python --version"
 
             sh "python3 --version"
 
-            sh "pip3 --version"
-
-            sh "pip install --upgrade setuptools"
-
-            sh "pip install -e ./ansible-container[docker]"
+            sh "python3 -m pip install -e ./ansible-container[docker]"
 
             sh "cd ansible-container && ansible-container build --with-volumes ../:/dashboard"
 
-            sh "python -m unittest"
+            sh "python3 -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
 
