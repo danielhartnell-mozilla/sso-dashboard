@@ -19,6 +19,8 @@ pipeline {
         }
         steps {
           container('python') {
+            sh "echo HELLO FROM NEW BUILD STEP"
+
             sh "python -m unittest"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
