@@ -19,12 +19,17 @@ pipeline {
         }
         steps {
           container('python') {
-            sh "echo HELLO FROM NEW BUILD STEP"
+            sh "git clone https://github.com/ansible/ansible-container.git"
+
+            sh "cd ansible-container"
+
+            sh "pip install -e ./ansible-container[docker]"
+
+            sh "cd ansible-container && ansible-container build --with-volumes ../:/dashboard"
 
             sh "python -m unittest"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
-
 
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
           }
@@ -39,12 +44,12 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'production'
+          branch 'master'
         }
         steps {
           container('python') {
             // ensure we're not on a detached head
-            sh "git checkout production"
+            sh "git checkout master"
             sh "git config --global credential.helper store"
 
             sh "jx step git credentials"
@@ -57,7 +62,15 @@ pipeline {
             }
           }
           container('python') {
-            sh "echo HELLO FROM JENKINSFILE..."
+            sh "pwd && ls"
+
+            sh "git clone https://github.com/ansible/ansible-container.git"
+
+            sh "cd ansible-container"
+
+            sh "pip install -e ./ansible-container[docker]"
+
+            sh "cd ansible-container && ansible-container build --with-volumes ../:/dashboard"
 
             sh "python -m unittest"
 
@@ -69,7 +82,7 @@ pipeline {
       }
       stage('Promote to Environments') {
         when {
-          branch 'production'
+          branch 'master'
         }
         steps {
           dir ('./charts/sso-dashboard') {
