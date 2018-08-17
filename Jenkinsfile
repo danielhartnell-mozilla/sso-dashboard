@@ -66,7 +66,7 @@ pipeline {
           container('python') {
             sh "git clone https://github.com/ansible/ansible-container.git"
 
-            sh "apt update && apt install -y gcc"
+            sh "yum install -y gcc"
 
             sh "pip install --upgrade setuptools"
 
