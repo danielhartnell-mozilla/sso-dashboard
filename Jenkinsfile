@@ -66,6 +66,8 @@ pipeline {
           container('python') {
             sh "git clone https://github.com/ansible/ansible-container.git"
 
+            sh "pip install --upgrade setuptools"
+
             sh "pip install -e ./ansible-container[docker]"
 
             sh "cd ansible && ls && ansible-container build --with-volumes ../:/dashboard"
