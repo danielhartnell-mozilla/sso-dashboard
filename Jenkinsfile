@@ -39,7 +39,7 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'master|test-01'
+          branch 'production'
         }
         steps {
           container('python') {
@@ -57,8 +57,6 @@ pipeline {
             }
           }
           container('python') {
-            sh "echo TEST-01 BRANCH TRIGGERED WHEN MASTER?"
-
             sh "python -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
@@ -69,7 +67,7 @@ pipeline {
       }
       stage('Promote to Environments') {
         when {
-          branch 'master'
+          branch 'production'
         }
         steps {
           dir ('./charts/sso-dashboard') {
