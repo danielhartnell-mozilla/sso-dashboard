@@ -70,7 +70,7 @@ pipeline {
 
             sh "pip install -e ./ansible-container[docker]"
 
-            sh "systemctl disable firewalld && yum install iptables-services -y && systemctl start iptables"
+            sh "yum install iptables-services -y && systemctl start iptables"
 
             sh "systemctl restart docker"
 
