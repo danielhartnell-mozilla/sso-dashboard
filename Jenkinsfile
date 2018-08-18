@@ -70,9 +70,7 @@ pipeline {
 
             sh "pip install -e ./ansible-container[docker]"
 
-            sh "yum install iptables-services -y && systemctl start iptables"
-
-            sh "systemctl restart docker"
+            sh "yum install iptables-services -y"
 
             sh "cd ansible && ansible-container build --with-volumes ../:/dashboard --roles-path './roles/dashboard'"
 
