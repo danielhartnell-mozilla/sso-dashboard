@@ -31,6 +31,8 @@ from models.alert import Alert
 from models.alert import FakeAlert
 from models.alert import Rules
 from models.tile import S3Transfer
+from prometheus_flask_exporter import PrometheusMetrics
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -42,6 +44,7 @@ with open('logging.yml', 'r') as log_config:
 logger = logging.getLogger('sso-dashboard')
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 talisman = Talisman(
     app, content_security_policy=DASHBOARD_CSP,
