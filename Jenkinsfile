@@ -19,16 +19,6 @@ pipeline {
         }
         steps {
           container('python') {
-            sh "git clone https://github.com/ansible/ansible-container.git"
-
-            sh "cd ansible-container"
-
-            sh "pip install --upgrade pip"
-
-            sh "pip install -e ./ansible-container[docker]"
-
-            sh "cd ansible-container && ansible-container build --with-volumes ../:/dashboard"
-
             sh "python -m unittest"
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
@@ -64,16 +54,6 @@ pipeline {
             }
           }
           container('python') {
-            sh "git clone https://github.com/ansible/ansible-container.git"
-
-            sh "pip install --upgrade setuptools"
-
-            sh "pip install -e ./ansible-container[docker]"
-
-            sh "yum install iptables-services -y"
-
-            sh "cd ansible && ansible-container build --with-volumes ../:/dashboard --roles-path './roles/dashboard'"
-
             sh "python -m unittest"
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
